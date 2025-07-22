@@ -79,14 +79,28 @@ ccb install "Custom Provider" your-api-key -u https://api.example.com/
 #### `ccb use [provider]`
 切换到指定的 API 提供商（模仿 `nvm use`）。
 
+**🎯 智能模糊匹配**: 支持多种匹配方式，无需输入完整提供商名称
+- **精确匹配**: `ccb use Anthropic`
+- **前缀匹配**: `ccb use moon` → 匹配到 "Moonshot AI"  
+- **包含匹配**: `ccb use shot` → 匹配到 "Moonshot AI"
+- **首字母缩写**: `ccb use ma` → 匹配到 "Moonshot AI"
+- **多结果选择**: 如果匹配到多个结果，会显示选择菜单
+
 **示例**:
 ```bash
 # 显示选择菜单
 ccb use
 
-# 直接切换
-ccb use "Moonshot AI"
+# 精确匹配
 ccb use Anthropic
+
+# 模糊匹配 (大小写不敏感)
+ccb use moonshot
+ccb use moon
+ccb use ma
+
+# 传统方式依然支持
+ccb use "Moonshot AI"
 ```
 
 #### `ccb ls` / `ccb list`
@@ -111,10 +125,13 @@ ccb add "My Provider" your-api-key -u https://api.example.com/
 #### `ccb remove <provider>` / `ccb rm <provider>`
 删除指定的提供商配置。
 
+**🎯 智能模糊匹配**: 同样支持模糊匹配，无需输入完整提供商名称
+
 **示例**:
 ```bash
-ccb remove "My Provider"
-ccb rm "Custom Provider"
+ccb remove "My Provider"    # 精确匹配
+ccb rm moonshot            # 模糊匹配
+ccb rm ma                  # 首字母缩写
 ```
 
 ### 系统命令

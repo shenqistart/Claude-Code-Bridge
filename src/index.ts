@@ -51,12 +51,14 @@ program
   });
 
 program
-  .command('use [provider]')
+  .command('use [provider...]')
   .description('切换到指定的API提供商')
   .action(async (provider) => {
     try {
-      await Logger.logCommand('use', [provider]);
-      await useCommand(provider);
+      // 将数组参数连接成字符串
+      const providerName = Array.isArray(provider) ? provider.join(' ') : provider;
+      await Logger.logCommand('use', [providerName]);
+      await useCommand(providerName);
     } catch (error) {
       await handleError(error, 'use');
     }
@@ -101,13 +103,15 @@ program
   });
 
 program
-  .command('remove <provider>')
+  .command('remove <provider...>')
   .alias('rm')
   .description('删除指定的提供商配置')
   .action(async (provider) => {
     try {
-      await Logger.logCommand('remove', [provider]);
-      await removeCommand(provider);
+      // 将数组参数连接成字符串
+      const providerName = Array.isArray(provider) ? provider.join(' ') : provider;
+      await Logger.logCommand('remove', [providerName]);
+      await removeCommand(providerName);
     } catch (error) {
       await handleError(error, 'remove');
     }
